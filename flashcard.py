@@ -11,8 +11,7 @@ project_dir = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@localhost/db_name'
-
+app.config.from_pyfile('flashcard.cfg')
 
 db = SQLAlchemy(app)
 
