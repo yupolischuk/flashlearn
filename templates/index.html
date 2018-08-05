@@ -3,6 +3,7 @@
     <h1>Add flashcard</h1>
     <form method="POST" action="/">
       <input type="text" name="question">
+      <input type="text" name="answer">
       <input type="submit" value="Add">
     </form>
 
@@ -11,12 +12,14 @@
       {% for flashcard in flashcards %}
         <tr>
           <td>
-            {{flashcard.question}} 
+           id:  {{flashcard.id}} |Question: {{flashcard.question}} |Answer: {{flashcard.answer}}
           </td>
           <td>
             <form method="POST" action="./update" style="display: inline">
               <input type="hidden" value="{{flashcard.question}}" name="oldquestion">
               <input type="text" value="{{flashcard.question}}" name="newquestion">
+              <input type="hidden" value="{{flashcard.answer}}" name="oldanswer">
+              <input type="text" value="{{flashcard.answer}}" name="newanswer">
               <input type="submit" value="Update">
             </form>
           </td>
