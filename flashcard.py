@@ -42,6 +42,7 @@ def home():
             print("Failed to add flashcard")
             print(e)
     flashcards = Flashcard.query.all()
+
     return render_template("index.html", flashcards=flashcards)
 
 @app.route("/update", methods=["POST"])
@@ -67,6 +68,12 @@ def delete():
     db.session.commit()
     return redirect("/")
 
+@app.route("/learning", methods=["GET"])
+def learn():
+    # TODO if current_id empty return first else - next if current is last - return first
+    flashcard = Flashcard.query.first()
+
+    return render_template("learning.html", flashcard=flashcard)
 
 if __name__ == "__main__":
     app.run(debug=True)
