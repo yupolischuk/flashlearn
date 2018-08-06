@@ -4,6 +4,7 @@ from flask import Flask
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -20,9 +21,11 @@ class Flashcard(db.Model):
     # __table_args__ = (
     #     {'mysql_character_set': 'utf8mb4', 'mysql_collate': 'utf8mb4_unicode_520_ci'},
     # )
-    id = db.Column(db.String(255))
+    id = db.Column(db.INTEGER)
     question = db.Column(db.String(255), unique=False, nullable=False, primary_key=True)
     answer = db.Column(db.String())
+    updated = db.Column(db.TIMESTAMP)
+    repetition_level = db.Column(db.INTEGER)
 
 
     def __repr__(self):
@@ -45,6 +48,7 @@ def home():
 
     return render_template("index.html", flashcards=flashcards)
 
+
 @app.route("/update", methods=["POST"])
 def update():
     try:
@@ -60,6 +64,7 @@ def update():
         print(e)
     return redirect("/")
 
+
 @app.route("/delete", methods=["POST"])
 def delete():
     question = request.form.get("question")
@@ -68,12 +73,39 @@ def delete():
     db.session.commit()
     return redirect("/")
 
+
 @app.route("/learning", methods=["GET"])
 def learn():
     # TODO if current_id empty return first else - next if current is last - return first
     flashcard = Flashcard.query.first()
 
     return render_template("learning.html", flashcard=flashcard)
+
+
+@app.route("/update_repetition_level", methods=["POST"])
+def update_repetition_level():
+    # fcard_id = request.args.get('fcard_id') # if send through postfix
+    fcard_id = request.form.get('fcard_id')
+    repetition_level = request.form.get('repetition_level')
+
+
+
+    flashcard = Flashcard.query.filter_by(id=fcard_id).first()
+    flashcard.repetition_level = repetition_level
+    db.session.commit()
+
+
+    return jsonify([fcard_id, repetition_level])
+
+
+    # Catch json request
+    # res = request.get_json(force=True)
+    #
+    # print('8888888888888888888888888888888')
+    # print(res)
+    # print('8888888888888888888888888888888')
+    # return 'JSON posted'
+
 
 if __name__ == "__main__":
     app.run(debug=True)

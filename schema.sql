@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
 --
 -- Host: localhost    Database: flashlearn
 -- ------------------------------------------------------
--- Server version	5.7.22-0ubuntu0.17.10.1
+-- Server version	5.7.23-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,6 +27,7 @@ CREATE TABLE `flashcard` (
   `question` varchar(255) NOT NULL,
   `answer` text NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `repetition_level` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,8 +38,34 @@ CREATE TABLE `flashcard` (
 
 LOCK TABLES `flashcard` WRITE;
 /*!40000 ALTER TABLE `flashcard` DISABLE KEYS */;
-INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-05 19:11:13'),(3,'Hidsfsdf','Kookoo','2018-08-05 19:18:00'),(4,'qwerty','uiop','2018-08-05 19:24:29');
+INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-05 19:11:13',1),(3,'Hidsfsdf','Kookoo','2018-08-05 19:18:00',2),(4,'qwerty','uiop','2018-08-05 19:24:29',3);
 /*!40000 ALTER TABLE `flashcard` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `repetition_category`
+--
+
+DROP TABLE IF EXISTS `repetition_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `repetition_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) NOT NULL,
+  `level` tinyint(6) NOT NULL,
+  `period_days` tinyint(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `repetition_category`
+--
+
+LOCK TABLES `repetition_category` WRITE;
+/*!40000 ALTER TABLE `repetition_category` DISABLE KEYS */;
+INSERT INTO `repetition_category` VALUES (1,'soon',1,0),(2,'good',2,1),(3,'easy',3,4),(4,'very easy',4,8);
+/*!40000 ALTER TABLE `repetition_category` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-05 22:26:14
+-- Dump completed on 2018-08-06 17:10:04
