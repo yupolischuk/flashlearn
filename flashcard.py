@@ -55,6 +55,7 @@ def update():
         newquestion = request.form.get("newquestion")
         newanswer = request.form.get("newanswer")
         oldquestion = request.form.get("oldquestion")
+
         flashcard = Flashcard.query.filter_by(question=oldquestion).first()
         flashcard.question = newquestion
         flashcard.answer = newanswer
@@ -62,6 +63,7 @@ def update():
     except Exception as e:
         print("Couldn't update flashcard question")
         print(e)
+
     return redirect("/")
 
 
@@ -76,10 +78,27 @@ def delete():
 
 @app.route("/learning", methods=["GET"])
 def learn():
-    # TODO if current_id empty return first else - next if current is last - return first
-    flashcard = Flashcard.query.first()
+    return render_template("learning.html")
 
-    return render_template("learning.html", flashcard=flashcard)
+
+@app.route("/give_fcard", methods=["POST"])
+def give_fcard():
+    # TODO if current_id empty return first else - next if current is last - return first
+    current_fcard_id = request.form.get("current_fcard_id")
+
+    # engine.execute('select * from flashcard where id=5').first()  # get flashcard as list of tuples
+    # engine.execute('select min(id) from flashcard where id > 4').first()  # get next id after 4th
+    # engine.execute("select min(id) from flashcard where id = '%id'" %id).first()  # parametrizet query (res[0])
+    id=4
+    result = db.engine.execute("select min(id) from flashcard where id = '%id'" %id).first()
+
+    return str(result[0])
+
+    # return jsonify([fcard.id, fcard.question, fcard.answer])
+
+
+
+
 
 
 @app.route("/update_repetition_level", methods=["POST"])
@@ -87,14 +106,9 @@ def update_repetition_level():
     # fcard_id = request.args.get('fcard_id') # if send through postfix
     fcard_id = request.form.get('fcard_id')
     repetition_level = request.form.get('repetition_level')
-
-
-
     flashcard = Flashcard.query.filter_by(id=fcard_id).first()
     flashcard.repetition_level = repetition_level
     db.session.commit()
-
-
     return jsonify([fcard_id, repetition_level])
 
 

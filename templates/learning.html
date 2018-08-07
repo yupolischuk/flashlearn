@@ -5,59 +5,39 @@
     <title>Learning</title>
 </head>
 <body>
-    Learning page
+    Learning page AJAX
+    <hr>
+
+    <div id="flashcard"></div>
+
     <br>
-    {{ flashcard.id }}
-    <br>
-    {{ flashcard.question }}
-    <br>
-    {{ flashcard.answer }}
-    <br>
-    {{ flashcard.repetition_level }}
-    <br>
+    <button id="prev-btn">Prev</button>
+
     <button id="know-btn">Good (1 day)</button>
+
+    <button id="next-btn">Next</button>
 
 
 <script src="/static/jquery.js"></script>
 <script>
 
-    $('#know-btn').on('click', function() {
-        var fcard_id = {{ flashcard.id }};
-        var repetition_level = 1;
-        var params = {
-            'fcard_id': fcard_id,
-            'repetition_level': repetition_level
+    (function getFlashcard() {
+        var http = new XMLHttpRequest();
+        var url = '/give_fcard';
+        var params = 'current_fcard_id=3&deck_id=1';
+        http.open('POST', url, true);
+
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function() {
+            if(http.readyState == 4 && http.status == 200) {
+                console.log(http.responseText);
+            }
         };
-
-        $.post('/update_repetition_level', params,
-            function(returnedData) {
-                 console.log(returnedData);
-        });
-    });
+        http.send(params);
+    })();
 
 
-    /*
-    $.ajax({
-        type: "POST",
-        url: '/update_repetition_level',
-        data: data,
-        success: function (res) {
-            console.log('success: ' + res);
-        }
-    });
-    */
-
-    /*
-    $('#know-btn').on('click', function() {
-        send('/update_repetition_level', data, function (res) {
-            console.log(res);
-        });
-    });
-
-    function send(uri, data, callback) {
-        $.post(uri, data, callback, 'json');
-    }
-    */
 
 </script>
 </body>
