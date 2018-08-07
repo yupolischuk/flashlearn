@@ -89,14 +89,16 @@ def give_fcard():
     # engine.execute('select * from flashcard where id=5').first()  # get flashcard as list of tuples
     # engine.execute('select min(id) from flashcard where id > 4').first()  # get next id after 4th
     # engine.execute("select min(id) from flashcard where id = '%id'" %id).first()  # parametrizet query (res[0])
-    id=4
-    result = db.engine.execute("select min(id) from flashcard where id = '%id'" %id).first()
 
-    return str(result[0])
+    # Get next card id and send to client
+    # id=4
+    # result = db.engine.execute("select min(id) from flashcard where id = '%id'" %id).first()
+    # return str(result[0])
 
     # return jsonify([fcard.id, fcard.question, fcard.answer])
 
-
+    flashcard = Flashcard.query.filter_by(id=current_fcard_id).first()
+    return jsonify([flashcard.id, flashcard.question, flashcard.answer, flashcard.repetition_level])
 
 
 

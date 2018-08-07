@@ -32,10 +32,17 @@
         http.onreadystatechange = function() {
             if(http.readyState == 4 && http.status == 200) {
                 console.log(http.responseText);
+                addFlashcart('flashcard', JSON.parse(http.responseText));
+
             }
         };
         http.send(params);
     })();
+
+    function addFlashcart(elem_id, data) {
+        var html = data[0] + ' ' + data[1] + ' ' + data[2];
+        document.getElementById(elem_id).innerHTML = html;
+    }
 
 
 
