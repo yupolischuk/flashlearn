@@ -9,16 +9,18 @@
     <hr>
 
     <div id="card"></div>
-
     <br>
+
     <button id="prev-btn">Prev</button>
+    <button id="next-btn">Next</button>
+    <hr>
 
     <button id="again-btn">Again (Soon)</button>
     <button id="good-btn">Good (1 day)</button>
     <button id="easy-btn">Easy (4 days)</button>
     <button id="very-easy-btn">Very easy (7 days)</button>
 
-    <button id="next-btn">Next</button>
+
 
 
 <script>
@@ -27,6 +29,12 @@
     window.onload = function() {
 
         var currentCardId;
+
+        //repetition level
+        const AGAIN     = 1;
+        const GOOD      = 2;
+        const EASY      = 3;
+        const VERY_EASY = 4;
 
         /*
             Process buttons
@@ -40,9 +48,23 @@
         document.getElementById('prev-btn').onclick = function getPrevCard() {
             processCards(1, currentCardId, 'give_prev');
         };
-        // Know
+
+        // Answer
+        document.getElementById('again-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + AGAIN;
+            sendRequest('/set_level', params);
+        };
         document.getElementById('good-btn').onclick = function sendAnswer() {
-            console.log('know');
+            var params = 'card_id=' + currentCardId + '&level=' + GOOD;
+            sendRequest('/set_level', params);
+        };
+        document.getElementById('easy-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + EASY;
+            sendRequest('/set_level', params);
+        };
+        document.getElementById('very-easy-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + VERY_EASY;
+            sendRequest('/set_level', params);
         };
 
 
@@ -51,13 +73,10 @@
 
 
         function processCards(deck_id, card_id, action) {
-            //Actions: give_first give_next give_prev send_answer
-
 
             var params = prepareParams(deck_id, card_id, action);
             sendRequest(params.url, params.request, function (card) {
                 render('card', card);
-
             });
 
         }

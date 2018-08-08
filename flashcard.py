@@ -25,7 +25,7 @@ class Flashcard(db.Model):
     question = db.Column(db.String(255), unique=False, nullable=False, primary_key=True)
     answer = db.Column(db.String())
     updated = db.Column(db.TIMESTAMP)
-    repetition_level = db.Column(db.INTEGER)
+    level = db.Column(db.INTEGER)
 
 
     def __repr__(self):
@@ -83,7 +83,6 @@ def learn():
 
 @app.route("/give_card", methods=["POST"])
 def give_card():
-    # TODO if current_id empty return first else - next if current is last - return first
     card_id = int(request.form.get("card_id"))
     action = request.form.get('action')
 
@@ -99,29 +98,31 @@ def give_card():
 
     if action == 'give_first':
         card = Flashcard.query.filter_by(id=card_id).first()
-        return jsonify([card.id, card.question, card.answer, card.repetition_level])
+        return jsonify([card.id, card.question, card.answer, card.level])
+
     elif action == 'give_next':
         current = str(card_id)
         next_id = db.engine.execute("select min(id) from flashcard where id > " + current).first()
         card = Flashcard.query.filter_by(id=next_id[0]).first()
-        return jsonify([card.id, card.question, card.answer, card.repetition_level])
+        return jsonify([card.id, card.question, card.answer, card.level])
+
     elif action == 'give_prev':
         current = str(card_id)
         prev_id = db.engine.execute("select max(id) from flashcard where id < " + current).first()
         card = Flashcard.query.filter_by(id=prev_id[0]).first()
-        return jsonify([card.id, card.question, card.answer, card.repetition_level])
+        return jsonify([card.id, card.question, card.answer, card.level])
 
 
-@app.route("/update_repetition_level", methods=["POST"])
-def update_repetition_level():
+@app.route("/set_level", methods=["POST"])
+def update_level():
     # fcard_id = request.args.get('fcard_id') # if send through postfix
-    fcard_id = request.form.get('fcard_id')
-    repetition_level = request.form.get('repetition_level')
-    flashcard = Flashcard.query.filter_by(id=fcard_id).first()
-    flashcard.repetition_level = repetition_level
+    card_id = request.form.get('card_id')
+    level = request.form.get('level')
+    flashcard = Flashcard.query.filter_by(id=card_id).first()
+    flashcard.level = level
     db.session.commit()
 
-    return jsonify([fcard_id, repetition_level])
+    return jsonify([card_id, level])
 
 
     # Catch json request

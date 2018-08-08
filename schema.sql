@@ -27,9 +27,9 @@ CREATE TABLE `flashcard` (
   `question` varchar(255) NOT NULL,
   `answer` text NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `repetition_level` int(11) NOT NULL,
+  `level` int(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `flashcard` (
 
 LOCK TABLES `flashcard` WRITE;
 /*!40000 ALTER TABLE `flashcard` DISABLE KEYS */;
-INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-05 19:11:13',1),(3,'Hidsfsdf','Kookoo','2018-08-05 19:18:00',2),(4,'qwerty','uiop','2018-08-05 19:24:29',3);
+INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-05 19:11:13',1),(3,'Hidsfsdf','Kookoo','2018-08-05 19:18:00',3),(4,'qwerty','uiop','2018-08-05 19:24:29',4),(5,'walahwalah','budubudu','2018-08-07 12:54:19',4);
 /*!40000 ALTER TABLE `flashcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-06 17:10:04
+-- Dump completed on 2018-08-08 16:45:17
