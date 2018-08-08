@@ -26,13 +26,16 @@
 
     window.onload = function() {
 
+        var currentCardId;
+
         /*
             Process buttons
          */
 
         // Next
         document.getElementById('next-btn').onclick = function getNextCard() {
-            processCards(1, 3, 'give_next')
+            console.log(currentCardId);
+            processCards(1, currentCardId, 'give_next');
         };
         // Prev
         document.getElementById('prev-btn').onclick = function getPrevCard() {
@@ -45,14 +48,17 @@
 
 
         // Give first card
-        processCards(1, 3, 'give_first');
+        processCards(1, 2, 'give_first');
+
 
         function processCards(deck_id, card_id, action) {
             //Actions: give_first give_next give_prev send_answer
+            console.log('processCards: ' + card_id);
 
             var params = prepareParams(deck_id, card_id, action);
             sendRequest(params.url, params.request, function (card) {
                 render('card', card);
+
             });
 
         }
@@ -74,7 +80,6 @@
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             http.onreadystatechange = function() {
                 if(http.readyState == 4 && http.status == 200) {
-                    console.log(http.responseText);
                     typeof callback === 'function' && callback(JSON.parse(http.responseText));
                 }
             };
@@ -84,6 +89,7 @@
         function render(elem_id, data) {
             var html = data[0] + '<br>' + data[1] + '<br>' + data[2];
             document.getElementById(elem_id).innerHTML = html;
+            currentCardId = data[0];
         }
 
     };
