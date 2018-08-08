@@ -34,12 +34,11 @@
 
         // Next
         document.getElementById('next-btn').onclick = function getNextCard() {
-            console.log(currentCardId);
             processCards(1, currentCardId, 'give_next');
         };
         // Prev
         document.getElementById('prev-btn').onclick = function getPrevCard() {
-            console.log('prev');
+            processCards(1, currentCardId, 'give_prev');
         };
         // Know
         document.getElementById('good-btn').onclick = function sendAnswer() {
@@ -53,7 +52,7 @@
 
         function processCards(deck_id, card_id, action) {
             //Actions: give_first give_next give_prev send_answer
-            console.log('processCards: ' + card_id);
+
 
             var params = prepareParams(deck_id, card_id, action);
             sendRequest(params.url, params.request, function (card) {
@@ -91,7 +90,6 @@
             document.getElementById(elem_id).innerHTML = html;
             currentCardId = data[0];
         }
-
     };
 
 </script>

@@ -105,6 +105,11 @@ def give_card():
         next_id = db.engine.execute("select min(id) from flashcard where id > " + current).first()
         card = Flashcard.query.filter_by(id=next_id[0]).first()
         return jsonify([card.id, card.question, card.answer, card.repetition_level])
+    elif action == 'give_prev':
+        current = str(card_id)
+        prev_id = db.engine.execute("select max(id) from flashcard where id < " + current).first()
+        card = Flashcard.query.filter_by(id=prev_id[0]).first()
+        return jsonify([card.id, card.question, card.answer, card.repetition_level])
 
 
 @app.route("/update_repetition_level", methods=["POST"])
