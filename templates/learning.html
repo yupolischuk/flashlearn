@@ -8,43 +8,84 @@
     Learning page AJAX
     <hr>
 
-    <div id="flashcard"></div>
+    <div id="card"></div>
 
     <br>
     <button id="prev-btn">Prev</button>
 
-    <button id="know-btn">Good (1 day)</button>
+    <button id="again-btn">Again (Soon)</button>
+    <button id="good-btn">Good (1 day)</button>
+    <button id="easy-btn">Easy (4 days)</button>
+    <button id="very-easy-btn">Very easy (7 days)</button>
 
     <button id="next-btn">Next</button>
 
 
-<script src="/static/jquery.js"></script>
 <script>
+    "use strict";
 
-    (function getFlashcard() {
-        var http = new XMLHttpRequest();
-        var url = '/give_fcard';
-        var params = 'current_fcard_id=3&deck_id=1';
-        http.open('POST', url, true);
+    window.onload = function() {
 
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        /*
+            Process buttons
+         */
 
-        http.onreadystatechange = function() {
-            if(http.readyState == 4 && http.status == 200) {
-                console.log(http.responseText);
-                addFlashcart('flashcard', JSON.parse(http.responseText));
-
-            }
+        // Next
+        document.getElementById('next-btn').onclick = function getNextCard() {
+            console.log('next');
         };
-        http.send(params);
-    })();
+        // Prev
+        document.getElementById('prev-btn').onclick = function getPrevCard() {
+            console.log('prev');
+        };
+        // Know
+        document.getElementById('good-btn').onclick = function sendAnswer() {
+            console.log('know');
+        };
 
-    function addFlashcart(elem_id, data) {
-        var html = data[0] + ' ' + data[1] + ' ' + data[2];
-        document.getElementById(elem_id).innerHTML = html;
-    }
+
+        // Give first card
+        processCards(1, 3, 'give_first');
+
+        function processCards(deck_id, card_id, action) {
+            //Actions: give_first give_next give_prev send_answer
+
+            var params = prepareParams(deck_id, card_id, action);
+            var card = sendRequest(params.url, params.request, function (card) {
+                render('card', card);
+            });
+
+        }
 
 
+        function prepareParams(deck_id, card_id, action) {
+            var url = '/give_card';
+            var request = 'action=' + action + '&deck_id=' + deck_id + '&card_id=' + card_id;
+
+            return {
+                'url': url,
+                'request': request
+            }
+        }
+
+        function sendRequest(url, params, callback) {
+            var http = new XMLHttpRequest();
+            http.open('POST', url, true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    typeof callback === 'function' && callback(JSON.parse(http.responseText));
+                }
+            };
+            http.send(params);
+        }
+
+        function render(elem_id, data) {
+            var html = data[0] + '<br>' + data[1] + '<br>' + data[2];
+            document.getElementById(elem_id).innerHTML = html;
+        }
+
+    };
 
 </script>
 </body>

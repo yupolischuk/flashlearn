@@ -81,10 +81,10 @@ def learn():
     return render_template("learning.html")
 
 
-@app.route("/give_fcard", methods=["POST"])
-def give_fcard():
+@app.route("/give_card", methods=["POST"])
+def give_card():
     # TODO if current_id empty return first else - next if current is last - return first
-    current_fcard_id = request.form.get("current_fcard_id")
+    card_id = request.form.get("card_id")
 
     # engine.execute('select * from flashcard where id=5').first()  # get flashcard as list of tuples
     # engine.execute('select min(id) from flashcard where id > 4').first()  # get next id after 4th
@@ -97,8 +97,8 @@ def give_fcard():
 
     # return jsonify([fcard.id, fcard.question, fcard.answer])
 
-    flashcard = Flashcard.query.filter_by(id=current_fcard_id).first()
-    return jsonify([flashcard.id, flashcard.question, flashcard.answer, flashcard.repetition_level])
+    card = Flashcard.query.filter_by(id=card_id).first()
+    return jsonify([card.id, card.question, card.answer, card.repetition_level])
 
 
 
@@ -111,6 +111,7 @@ def update_repetition_level():
     flashcard = Flashcard.query.filter_by(id=fcard_id).first()
     flashcard.repetition_level = repetition_level
     db.session.commit()
+
     return jsonify([fcard_id, repetition_level])
 
 
