@@ -38,34 +38,32 @@ CREATE TABLE `flashcard` (
 
 LOCK TABLES `flashcard` WRITE;
 /*!40000 ALTER TABLE `flashcard` DISABLE KEYS */;
-INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-05 19:11:13',1),(3,'Hidsfsdf','Kookoo','2018-08-05 19:18:00',3),(4,'qwerty','uiop','2018-08-05 19:24:29',4),(5,'walahwalah','budubudu','2018-08-07 12:54:19',4);
+INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-05 19:11:13',1),(3,'Hidsfsdf','Kookoo','2018-08-05 19:18:00',3),(4,'qwerty','uiop','2018-08-05 19:24:29',4),(5,'walahwalah','budubudu','2018-08-07 12:54:19',2);
 /*!40000 ALTER TABLE `flashcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `repetition_category`
+-- Table structure for table `level`
 --
 
-DROP TABLE IF EXISTS `repetition_category`;
+DROP TABLE IF EXISTS `level`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `repetition_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(255) NOT NULL,
-  `level` tinyint(6) NOT NULL,
-  `period_days` tinyint(6) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+CREATE TABLE `level` (
+  `id` tinyint(2) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `days` tinyint(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `repetition_category`
+-- Dumping data for table `level`
 --
 
-LOCK TABLES `repetition_category` WRITE;
-/*!40000 ALTER TABLE `repetition_category` DISABLE KEYS */;
-INSERT INTO `repetition_category` VALUES (1,'soon',1,0),(2,'good',2,1),(3,'easy',3,4),(4,'very easy',4,8);
-/*!40000 ALTER TABLE `repetition_category` ENABLE KEYS */;
+LOCK TABLES `level` WRITE;
+/*!40000 ALTER TABLE `level` DISABLE KEYS */;
+INSERT INTO `level` VALUES (1,'again',0),(2,'good',1),(3,'easy',4),(4,'very_easy',8);
+/*!40000 ALTER TABLE `level` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -77,4 +75,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-08 16:45:17
+-- Dump completed on 2018-08-08 17:47:55

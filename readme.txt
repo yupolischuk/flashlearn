@@ -6,3 +6,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@local
 >>> from flashcard import db
 >>> db.create_all()
 >>> exit()
+
+
+TODO
+Handling card leanring level
+Flashcards with code, with syntax highlight
+Charts:
+    commit heatmap
+
+
+Mindmapping
+
