@@ -84,11 +84,11 @@ def learn():
 @app.route("/give_card", methods=["POST"])
 def give_card():
     # TODO if current_id empty return first else - next if current is last - return first
-    card_id = request.form.get("card_id")
+    card_id = int(request.form.get("card_id"))
+    action = request.form.get('action')
 
     # engine.execute('select * from flashcard where id=5').first()  # get flashcard as list of tuples
     # engine.execute('select min(id) from flashcard where id > 4').first()  # get next id after 4th
-    # engine.execute("select min(id) from flashcard where id = '%id'" %id).first()  # parametrizet query (res[0])
 
     # Get next card id and send to client
     # id=4
@@ -97,10 +97,14 @@ def give_card():
 
     # return jsonify([fcard.id, fcard.question, fcard.answer])
 
-    card = Flashcard.query.filter_by(id=card_id).first()
-    return jsonify([card.id, card.question, card.answer, card.repetition_level])
-
-
+    if action == 'give_first':
+        card = Flashcard.query.filter_by(id=card_id).first()
+        return jsonify([card.id, card.question, card.answer, card.repetition_level])
+    elif action == 'give_next':
+        current = str(card_id)
+        next_id = db.engine.execute("select min(id) from flashcard where id > " + current).first()
+        card = Flashcard.query.filter_by(id=next_id[0]).first()
+        return jsonify([card.id, card.question, card.answer, card.repetition_level])
 
 
 @app.route("/update_repetition_level", methods=["POST"])

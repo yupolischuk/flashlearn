@@ -32,7 +32,7 @@
 
         // Next
         document.getElementById('next-btn').onclick = function getNextCard() {
-            console.log('next');
+            processCards(1, 3, 'give_next')
         };
         // Prev
         document.getElementById('prev-btn').onclick = function getPrevCard() {
@@ -51,7 +51,7 @@
             //Actions: give_first give_next give_prev send_answer
 
             var params = prepareParams(deck_id, card_id, action);
-            var card = sendRequest(params.url, params.request, function (card) {
+            sendRequest(params.url, params.request, function (card) {
                 render('card', card);
             });
 
@@ -74,6 +74,7 @@
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             http.onreadystatechange = function() {
                 if(http.readyState == 4 && http.status == 200) {
+                    console.log(http.responseText);
                     typeof callback === 'function' && callback(JSON.parse(http.responseText));
                 }
             };
