@@ -87,6 +87,14 @@ def give_card():
     card_id = int(request.form.get("card_id"))
     action = request.form.get('action')
 
+    '''
+    Приоритет выдачи карт
+    Выбрать все из выбранной колоды которые
+        отвечал больше дня назад + начиная из самого низкого уровня
+        выбираем все обновленные сегодня но больше часа назад + начиная из самого низкого уровня
+        выбираем все обновленные меньше часа назад + начная из самого низкого уровня
+        
+    '''
     # engine.execute('select * from flashcard where id=5').first()  # get flashcard as list of tuples
     # engine.execute('select min(id) from flashcard where id > 4').first()  # get next id after 4th
 
@@ -106,20 +114,27 @@ def give_card():
         # SELECT * FROM `flashcard` WHERE level = (SELECT MIN(level) AS LovestLevel FROM `flashcard`);
         sql = 'SELECT * FROM `flashcard` WHERE level = (SELECT MIN(level) FROM `flashcard`)'
         card = db.engine.execute(sql).first()
-
         return jsonify([str(card[0]), str(card[1]), str(card[2]), str(card[4])])
-
 
     elif action == 'give_next':
         current = str(card_id)
-        next_id = db.engine.execute("SELECT MIN(id) FROM flashcard WHERE id > " + current).first()
-        card = Flashcard.query.filter_by(id=next_id[0]).first()
+        current_level = db.engine.execute("SELECT level FROM flashcard WHERE id = " + current).first()
+        next_id_same_level = db.engine.execute(
+            "SELECT MIN(id) FROM flashcard "
+            "WHERE id > " + current + " AND level = " + str(current_level[0])
+        ).first()
+        card = Flashcard.query.filter_by(id=next_id_same_level[0]).first()
         return jsonify([card.id, card.question, card.answer, card.level])
 
     elif action == 'give_prev':
         current = str(card_id)
-        prev_id = db.engine.execute("SELECT MAX(id) FROM flashcard WHERE id < " + current).first()
-        card = Flashcard.query.filter_by(id=prev_id[0]).first()
+        current_level = db.engine.execute("SELECT level FROM flashcard WHERE id = " + current).first()
+        # prev_id_same_level = db.engine.execute("SELECT MAX(id) FROM flashcard WHERE id <" + current + " AND level = 1").first()
+        prev_id_same_level = db.engine.execute(
+            "SELECT MAX(id) FROM flashcard "
+            "WHERE id < " + current + " AND level = " + str(current_level[0])
+        ).first()
+        card = Flashcard.query.filter_by(id=prev_id_same_level[0]).first()
         return jsonify([card.id, card.question, card.answer, card.level])
 
 

@@ -12,9 +12,12 @@ TODO
 Handling card leanring level (prioritization)
 Card Decks
 Flashcards with code, with syntax highlight
-Charts:
-    commit heatmap
+Nested Sets for Decks
+Статистика
+    сколько раз проголосовали в текущий день
 
+Charts:
+    commit(добавление карт) heatmap
 
 Mindmapping
 
