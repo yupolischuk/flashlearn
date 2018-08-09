@@ -69,7 +69,8 @@
 
 
         // Give first card
-        processCards(1, 2, 'give_first');
+        // TODO не передавать card_id если action=give_first
+        processCards(0, 0, 'give_first');
 
 
         function processCards(deck_id, card_id, action) {

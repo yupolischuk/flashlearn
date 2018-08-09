@@ -97,25 +97,35 @@ def give_card():
 
     # return jsonify([fcard.id, fcard.question, fcard.answer])
 
+
     if action == 'give_first':
-        card = Flashcard.query.filter_by(id=card_id).first()
-        return jsonify([card.id, card.question, card.answer, card.level])
+        # card = Flashcard.query.filter_by(id=card_id).first()
+        # return jsonify([card.id, card.question, card.answer, card.level])
+
+        # Выбрать первую, у которой min(level)
+        # SELECT * FROM `flashcard` WHERE level = (SELECT MIN(level) AS LovestLevel FROM `flashcard`);
+        sql = 'SELECT * FROM `flashcard` WHERE level = (SELECT MIN(level) FROM `flashcard`)'
+        card = db.engine.execute(sql).first()
+
+        return jsonify([str(card[0]), str(card[1]), str(card[2]), str(card[4])])
+
 
     elif action == 'give_next':
         current = str(card_id)
-        next_id = db.engine.execute("select min(id) from flashcard where id > " + current).first()
+        next_id = db.engine.execute("SELECT MIN(id) FROM flashcard WHERE id > " + current).first()
         card = Flashcard.query.filter_by(id=next_id[0]).first()
         return jsonify([card.id, card.question, card.answer, card.level])
 
     elif action == 'give_prev':
         current = str(card_id)
-        prev_id = db.engine.execute("select max(id) from flashcard where id < " + current).first()
+        prev_id = db.engine.execute("SELECT MAX(id) FROM flashcard WHERE id < " + current).first()
         card = Flashcard.query.filter_by(id=prev_id[0]).first()
         return jsonify([card.id, card.question, card.answer, card.level])
 
 
 @app.route("/set_level", methods=["POST"])
 def update_level():
+    # TODO exception handling and sending operation status
     # fcard_id = request.args.get('fcard_id') # if send through postfix
     card_id = request.form.get('card_id')
     level = request.form.get('level')
