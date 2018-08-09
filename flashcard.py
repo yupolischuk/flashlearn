@@ -119,12 +119,24 @@ def give_card():
     elif action == 'give_next':
         current = str(card_id)
         current_level = db.engine.execute("SELECT level FROM flashcard WHERE id = " + current).first()
-        next_id_same_level = db.engine.execute(
+
+        next_id = db.engine.execute(
             "SELECT MIN(id) FROM flashcard "
             "WHERE id > " + current + " AND level = " + str(current_level[0])
         ).first()
-        card = Flashcard.query.filter_by(id=next_id_same_level[0]).first()
-        return jsonify([card.id, card.question, card.answer, card.level])
+
+        if next_id[0] is None:
+            next_id = db.engine.execute(
+                "SELECT MIN(id) FROM flashcard "
+                "WHERE id > " + current + " AND level = 2").first()
+            print('77777777777777777777777777777')
+            print(next_id)
+
+        if next_id[0]:
+            card = Flashcard.query.filter_by(id=next_id[0]).first()
+            return jsonify([card.id, card.question, card.answer, card.level])
+        else:
+            return 'card not found'
 
     elif action == 'give_prev':
         current = str(card_id)
