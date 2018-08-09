@@ -9,7 +9,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@local
 
 
 TODO
-Handling card leanring level
+Handling card leanring level (prioritization)
+Card Decks
 Flashcards with code, with syntax highlight
 Charts:
     commit heatmap

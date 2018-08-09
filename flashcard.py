@@ -1,4 +1,5 @@
 import os
+import time, datetime
 
 from flask import Flask
 from flask import redirect
@@ -120,6 +121,7 @@ def update_level():
     level = request.form.get('level')
     flashcard = Flashcard.query.filter_by(id=card_id).first()
     flashcard.level = level
+    flashcard.updated = current_timestamp()
     db.session.commit()
 
     return jsonify([card_id, level])
@@ -132,6 +134,12 @@ def update_level():
     # print(res)
     # print('8888888888888888888888888888888')
     # return 'JSON posted'
+
+
+def current_timestamp():
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    return st
 
 
 if __name__ == "__main__":
