@@ -126,11 +126,10 @@ def give_card():
         ).first()
 
         if next_id[0] is None:
+            current_level = int(current_level[0]) + 1
             next_id = db.engine.execute(
                 "SELECT MIN(id) FROM flashcard "
-                "WHERE id > " + current + " AND level = 2").first()
-            print('77777777777777777777777777777')
-            print(next_id)
+                "WHERE level = " + str(current_level)).first()
 
         if next_id[0]:
             card = Flashcard.query.filter_by(id=next_id[0]).first()

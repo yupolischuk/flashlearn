@@ -9,10 +9,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@local
 
 
 TODO
+Refector
+    Make app structure http://exploreflask.com/en/latest/organizing.html
+
 Handling card leanring level (prioritization)
 Card Decks
 Flashcards with code, with syntax highlight
+Adding images to cards
 Nested Sets for Decks
+
 Статистика
     сколько раз проголосовали в текущий день
 
@@ -20,4 +25,4 @@ Charts:
     commit(добавление карт) heatmap
 
 Mindmapping
-
+Block-scheme painting
