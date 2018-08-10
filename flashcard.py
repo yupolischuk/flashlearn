@@ -93,7 +93,7 @@ def give_card():
         отвечал больше дня назад + начиная из самого низкого уровня
         выбираем все обновленные сегодня но больше часа назад + начиная из самого низкого уровня
         выбираем все обновленные меньше часа назад + начная из самого низкого уровня
-        
+        Когда карты закончились - выводим сообщение: Колода закончилась, с возможностью начать заново
     '''
     # engine.execute('select * from flashcard where id=5').first()  # get flashcard as list of tuples
     # engine.execute('select min(id) from flashcard where id > 4').first()  # get next id after 4th
@@ -141,12 +141,22 @@ def give_card():
         current = str(card_id)
         current_level = db.engine.execute("SELECT level FROM flashcard WHERE id = " + current).first()
         # prev_id_same_level = db.engine.execute("SELECT MAX(id) FROM flashcard WHERE id <" + current + " AND level = 1").first()
-        prev_id_same_level = db.engine.execute(
+        prev_id = db.engine.execute(
             "SELECT MAX(id) FROM flashcard "
             "WHERE id < " + current + " AND level = " + str(current_level[0])
         ).first()
-        card = Flashcard.query.filter_by(id=prev_id_same_level[0]).first()
-        return jsonify([card.id, card.question, card.answer, card.level])
+
+        if prev_id[0] is None:
+            current_level = int(current_level[0]) - 1
+            prev_id = db.engine.execute(
+                "SELECT MAX(id) FROM flashcard "
+                "WHERE level = " + str(current_level)).first()
+
+        if prev_id[0]:
+            card = Flashcard.query.filter_by(id=prev_id[0]).first()
+            return jsonify([card.id, card.question, card.answer, card.level])
+        else:
+            return 'card not found'
 
 
 @app.route("/set_level", methods=["POST"])
