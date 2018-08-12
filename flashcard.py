@@ -27,10 +27,17 @@ class Flashcard(db.Model):
     answer = db.Column(db.String())
     updated = db.Column(db.TIMESTAMP)
     level = db.Column(db.INTEGER)
-
+    deck_id = db.Column(db.INTEGER)
 
     def __repr__(self):
         return "<Question: {}>".format(self.question)
+
+
+# class Deck(db.Model):
+#     __tablename__ = 'deck'
+#     id = db.Column(db.INTEGER)
+#     name = db.Column(db.String(255))
+#     parent_id = db.Column(db.INTEGER)
 
 
 @app.route('/', methods=["GET", "POST"])
