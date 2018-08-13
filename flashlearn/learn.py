@@ -1,10 +1,8 @@
-import os
 import time, datetime
 
-from flask import ( Blueprint)
+from flask import Blueprint
 from flashlearn.db import connect
 from flask import render_template
-from flask import redirect
 from flask import request
 from flask import jsonify
 
@@ -12,13 +10,6 @@ from flask import jsonify
 bp = Blueprint('learn', __name__)
 
 engine = connect()
-
-@bp.route('/learn/test')
-def test():
-    engine = connect()
-    res = engine.execute('select * from flashcard where id = 2').first()
-
-    return render_template("learn.html")
 
 
 @bp.route('/learn/', methods=['GET'])
@@ -113,6 +104,4 @@ def current_timestamp():
     ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     return st
-
-
 

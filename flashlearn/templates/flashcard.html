@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flashcard</title>
+</head>
+<body>
+    <button id="#">x</button>
+    <hr>
+    id = {{ flashcard['id'] }}
+    <br>
+    level = {{ flashcard['level'] }}
+    <br>
+
+    <form method="POST" action="/flashcard/update">
+        question
+        <input type="text" id="question" value="{{ flashcard['question'] }}">
+        <br>
+        answer
+        <input type="text" id="answer" value="{{ flashcard['answer'] }}">
+        <br>
+        level
+        <input type="text" id="level" value="{{ flashcard['level'] }}">
+        <hr>
+
+        <input type="button" id="update-btn" value="Update">
+    </form>
+
+<script>
+    "use strict"
+
+    window.onload = function() {
+        var cardId = findGetParameter('id');
+
+        document.getElementById('update-btn').onclick = function (ev) {
+            var data = collectInputs();
+            console.log(data);
+        };
+
+
+     function collectInputs() {
+        var question = document.getElementById('question').value;
+        var answer = document.getElementById('question').value;
+        var level = document.getElementById('level').value;
+
+        return {
+            'question': question,
+            'answer': answer,
+            'level': level
+        }
+
+     };
+
+     function sendRequest(data) {
+            var http = new XMLHttpRequest();
+            http.open('POST', url, true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    //typeof callback === 'function' && callback(JSON.parse(http.responseText));
+                    console.log(http.responseText);
+                }
+            };
+            http.send(data);
+     }
+
+
+    function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [];
+        location.search
+            .substr(1)
+            .split("&")
+            .forEach(function (item) {
+              tmp = item.split("=");
+              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
+    }
+
+
+
+    }
+
+</script>
+</body>
+</html>

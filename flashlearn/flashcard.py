@@ -1,25 +1,14 @@
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
-)
-from werkzeug.exceptions import abort
+from flask import Blueprint
+from flask import render_template
+from flask import request
+from flask import jsonify
 
-
-from sqlalchemy import create_engine, MetaData, Table
-
-# TODO WRITE HUMAN CONFIG INCLUDING
-file = open('./flashcard.cfg', 'r')
-str = file.read()
-arr = str.split("=")
-config = arr[1][2:49]
-
-engine = create_engine(config, convert_unicode=True)
-
-metadata = MetaData(bind=engine)
-con = engine.connect()
-
-# from flashlearn.db import get_db
+from flashlearn.db import connect
+from flashlearn.helper import current_timestamp
 
 bp = Blueprint('flashcard', __name__)
+
+engine = connect()
 
 @bp.route('/flashcard/test')
 def test():
@@ -36,6 +25,27 @@ def test():
     print(type(res[2]))
     return res[2]
 
-    # return 'Hi!!!!777777777777777777777!!!!!!!!7777777777777'
 
 # TODO CARD CRUD
+@bp.route('/flashcard/', methods=['GET'])
+def index():
+    id = request.args.get('id')
+
+    # TODO validate params to prevent SQL injections
+    flashcard = engine.execute('SELECT * FROM `flashcard` WHERE id = ' + str(id)).first()
+
+    # print(flashcard['id'])
+
+    return render_template('flashcard.html', flashcard=flashcard)
+
+
+@bp.route('/flashcard/update', methods=['POST'])
+def update():
+    id = request.form.get('id')
+
+    print('7777777777777777777777777777777')
+    print(id)
+
+    return 'hi'
+
+
