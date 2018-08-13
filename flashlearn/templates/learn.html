@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning</title>
+</head>
+<body>
+    Learning page AJAX
+    <hr>
+
+    <div id="card"></div>
+    <br>
+
+    <button id="prev-btn">Prev</button>
+    <button id="next-btn">Next</button>
+    <hr>
+
+    <button id="again-btn">Again (2 hours)</button>
+    <button id="hard-btn">Hard (1 day)</button>
+    <button id="good-btn">Good (4 days)</button>
+    <button id="easy-btn">Easy(7 days)</button>
+
+
+
+
+<script>
+    "use strict";
+
+    window.onload = function() {
+
+        var currentCardId;
+
+        //repetition level
+        const AGAIN     = 1;
+        const HARD      = 2;
+        const GOOD      = 3;
+        const EASY      = 4;
+
+        /*
+            Process buttons
+         */
+
+        // Next
+        document.getElementById('next-btn').onclick = function getNextCard() {
+            processCards(1, currentCardId, 'give_next');
+        };
+        // Prev
+        document.getElementById('prev-btn').onclick = function getPrevCard() {
+            processCards(1, currentCardId, 'give_prev');
+        };
+
+        // Answer
+        document.getElementById('again-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + AGAIN;
+            sendRequest('/set_level', params);
+        };
+        document.getElementById('hard-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + HARD;
+            sendRequest('/set_level', params);
+        };
+        document.getElementById('good-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + GOOD;
+            sendRequest('/set_level', params);
+        };
+        document.getElementById('easy-btn').onclick = function sendAnswer() {
+            var params = 'card_id=' + currentCardId + '&level=' + EASY;
+            sendRequest('/set_level', params);
+        };
+
+
+        // Give first card
+        // TODO не передавать card_id если action=give_first
+        processCards(0, 0, 'give_first');
+
+
+        function processCards(deck_id, card_id, action) {
+
+            var params = prepareParams(deck_id, card_id, action);
+            sendRequest(params.url, params.request, function (card) {
+                render('card', card);
+            });
+
+        }
+
+
+        function prepareParams(deck_id, card_id, action) {
+            var url = '/give_card';
+            var request = 'action=' + action + '&deck_id=' + deck_id + '&card_id=' + card_id;
+
+            return {
+                'url': url,
+                'request': request
+            }
+        }
+
+        function sendRequest(url, params, callback) {
+            var http = new XMLHttpRequest();
+            http.open('POST', url, true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    typeof callback === 'function' && callback(JSON.parse(http.responseText));
+                }
+            };
+            http.send(params);
+        }
+
+        function render(elem_id, data) {
+            var html = data[0] + '<br>' + data[1] + '<br>' + data[2];
+            document.getElementById(elem_id).innerHTML = html;
+            currentCardId = data[0];
+        }
+    };
+
+</script>
+</body>
+</html>
