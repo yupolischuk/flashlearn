@@ -10,7 +10,7 @@ from sqlalchemy import create_engine, MetaData, Table
 file = open('./flashcard.cfg', 'r')
 str = file.read()
 arr = str.split("=")
-config = arr[1][2:48]
+config = arr[1][2:49]
 
 engine = create_engine(config, convert_unicode=True)
 
@@ -21,8 +21,8 @@ con = engine.connect()
 
 bp = Blueprint('flashcard', __name__)
 
-@bp.route('/')
-def index():
+@bp.route('/flashcard/test')
+def test():
     # db = get_db()
     # posts = db.execute(
     #     'SELECT p.id, title, body, created, author_id, username'
@@ -37,3 +37,5 @@ def index():
     return res[2]
 
     # return 'Hi!!!!777777777777777777777!!!!!!!!7777777777777'
+
+# TODO CARD CRUD
