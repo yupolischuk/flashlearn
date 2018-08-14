@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import request
 from flask import jsonify
+from flask import redirect
 
 from flashlearn.db import connect
 from flashlearn.helper import current_timestamp
@@ -50,10 +51,17 @@ def update():
 
     str = 'UPDATE `flashcard` SET `question`=\'' + question + '\',`answer`=\'' + answer +\
         '\',`updated`=\'' + updated + '\',`level`=\'' + level + '\' WHERE id=' + id
-    print(str)
 
     engine.execute(str)
 
     return 'hi'
 
 
+@bp.route('/flashcard/delete', methods=['POST'])
+def delete():
+
+    id = request.form.get('id')
+    engine.execute('DELETE FROM `flashcard` WHERE id=' + id)
+
+    return 'deleted'
+    # return redirect('/')
