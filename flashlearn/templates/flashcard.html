@@ -33,17 +33,26 @@
         var cardId = findGetParameter('id');
 
         document.getElementById('update-btn').onclick = function (ev) {
-            var data = collectInputs();
-            console.log(data);
+            var data = collectInputs(cardId);
+            var params = prepareParams(data);
+            console.log('params');
+            console.log(params);
+
+            sendRequest(params);
         };
 
 
-     function collectInputs() {
+     function prepareParams(data) {
+         return 'id=' + data['id'] + '&question=' + data['question'] + '&answer=' + data['answer'] + '&level=' + data['level'];
+     }
+
+     function collectInputs(cardId) {
         var question = document.getElementById('question').value;
-        var answer = document.getElementById('question').value;
+        var answer = document.getElementById('answer').value;
         var level = document.getElementById('level').value;
 
         return {
+            'id': cardId,
             'question': question,
             'answer': answer,
             'level': level
@@ -53,7 +62,7 @@
 
      function sendRequest(data) {
             var http = new XMLHttpRequest();
-            http.open('POST', url, true);
+            http.open('POST', '/flashcard/update', true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             http.onreadystatechange = function() {
                 if(http.readyState == 4 && http.status == 200) {

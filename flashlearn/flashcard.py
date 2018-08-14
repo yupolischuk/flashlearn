@@ -41,10 +41,18 @@ def index():
 
 @bp.route('/flashcard/update', methods=['POST'])
 def update():
-    id = request.form.get('id')
 
-    print('7777777777777777777777777777777')
-    print(id)
+    id = request.form.get('id')
+    question = request.form.get('question')
+    answer = request.form.get('answer')
+    level = request.form.get('level')
+    updated = current_timestamp()
+
+    str = 'UPDATE `flashcard` SET `question`=\'' + question + '\',`answer`=\'' + answer +\
+        '\',`updated`=\'' + updated + '\',`level`=\'' + level + '\' WHERE id=' + id
+    print(str)
+
+    engine.execute(str)
 
     return 'hi'
 
