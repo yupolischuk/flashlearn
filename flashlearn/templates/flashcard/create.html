@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="POST">
+        question
+        <input type="text" id="question">
+        <br>
+        answer
+        <input type="text" id="answer">
+        <br>
+
+        <button type="button" id="save-btn">Save</button>
+
+    </form>
+
+<script>
+    "use strict"
+
+    window.onload = function () {
+        document.getElementById('save-btn').onclick = function () {
+            var question = document.getElementById('question').value;
+            var answer = document.getElementById('answer').value;
+
+            var params = 'question=' + question + '&answer=' + answer;
+            sendRequest(params);
+        };
+
+        function sendRequest(data) {
+            var http = new XMLHttpRequest();
+
+            http.open('POST', '/flashcard/save_new', true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    //typeof callback === 'function' && callback(JSON.parse(http.responseText));
+                    console.log(http.responseText);
+                }
+            };
+            http.send(data);
+     }
+    }
+</script>
+
+</body>
+</html>

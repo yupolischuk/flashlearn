@@ -37,9 +37,9 @@ def index():
 
     # print(flashcard['id'])
 
-    return render_template('flashcard.html', flashcard=flashcard)
+    return render_template('flashcard/flashcard.html', flashcard=flashcard)
 
-
+# Update
 @bp.route('/flashcard/update', methods=['POST'])
 def update():
 
@@ -57,6 +57,7 @@ def update():
     return 'hi'
 
 
+# Delete
 @bp.route('/flashcard/delete', methods=['POST'])
 def delete():
 
@@ -65,3 +66,25 @@ def delete():
 
     return 'deleted'
     # return redirect('/')
+
+
+# Create
+@bp.route('/flashcard/create', methods=['GET'])
+def create():
+
+    return render_template('flashcard/create.html')
+
+
+@bp.route('/flashcard/save_new', methods=['POST'])
+def save_new():
+    level = 1
+    updated = current_timestamp()
+    question = request.form.get('question')
+    answer = request.form.get('answer')
+
+    sql = "INSERT INTO `flashcard`(`question`, `answer`, `updated`, `level`) " \
+          "VALUES (\'" + question + "\', \'" + answer + "\', \'" + updated + "\', " + str(level) + ")"
+    engine.execute(sql);
+
+    # return 'server response: ' + question + ' ' + answer
+    return 'hi'
