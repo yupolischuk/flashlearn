@@ -12,7 +12,7 @@
 
         {{ deck['id'] }}
         {{ deck['name'] }}
-        <button type="button">Go</button>
+        <button type="button">Learn</button>
         <button type="button">Edit</button>
         <button class="delete-btn" data-id="{{ deck['id'] }}" type="button">Delete</button>
         <hr>
@@ -25,11 +25,12 @@
         document.querySelector('#deck-list').onclick = function (e) {
             var el = e.target;
 
-            if(el.type === 'button') {
+            if (el.type === 'button' && el['className'] === 'delete-btn') {
                 var id = el.dataset['id'];
                 sendRequest(id);
             }
-        }
+
+        };
 
 
         function sendRequest(id) {
