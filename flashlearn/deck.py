@@ -26,3 +26,20 @@ def save():
     engine.execute(sql)
 
     return redirect('/')
+
+
+@bp.route('/deck/delete', methods=['POST'])
+def delete():
+
+    id = request.form.get('id')
+    sql = "DELETE FROM `deck` WHERE id=" + str(id)
+
+    engine.execute(sql)
+
+    return 'success'
+
+
+
+
+
+

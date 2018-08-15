@@ -4,16 +4,50 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+
     <button onclick="location.href='/deck/create'">Add new</button>
     <hr>
-
+<div id="deck-list">
     {% for deck in decks %}
+
         {{ deck['id'] }}
         {{ deck['name'] }}
         <button type="button">Go</button>
         <button type="button">Edit</button>
+        <button class="delete-btn" data-id="{{ deck['id'] }}" type="button">Delete</button>
         <hr>
     {% endfor %}
+</div>
+    <script>
+
+    window.onload = function () {
+
+        document.querySelector('#deck-list').onclick = function (e) {
+            var el = e.target;
+
+            if(el.type === 'button') {
+                var id = el.dataset['id'];
+                sendRequest(id);
+            }
+        }
+
+
+        function sendRequest(id) {
+            var http = new XMLHttpRequest();
+            var data = 'id=' + id;
+            http.open('POST', '/deck/delete', true);
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    //typeof callback === 'function' && callback(JSON.parse(http.responseText));
+                    console.log(http.responseText);
+                }
+            };
+            http.send(data);
+        }
+
+    }
+
+    </script>
 </body>
 </html>
