@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@local
 
 
 TODO
+Input data filtering
 Refector
     Make app structure http://exploreflask.com/en/latest/organizing.html
 Write Tests

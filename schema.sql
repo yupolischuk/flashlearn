@@ -27,8 +27,9 @@ CREATE TABLE `deck` (
   `name` varchar(255) NOT NULL,
   `parent` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `id` (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +38,7 @@ CREATE TABLE `deck` (
 
 LOCK TABLES `deck` WRITE;
 /*!40000 ALTER TABLE `deck` DISABLE KEYS */;
-INSERT INTO `deck` VALUES (1,'First deck',NULL,'2018-08-15 08:01:48'),(2,'Second deck',NULL,'2018-08-15 08:21:39');
+INSERT INTO `deck` VALUES (5,'The first deck',NULL,'2018-08-15 11:35:38'),(6,'Second deck',NULL,'2018-08-15 11:39:01'),(7,'Third deck',NULL,'2018-08-15 11:40:00');
 /*!40000 ALTER TABLE `deck` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,4 +102,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-15 11:36:21
+-- Dump completed on 2018-08-15 14:40:52

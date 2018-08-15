@@ -5,9 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+    <button onclick="location.href='/deck/create'">Add new</button>
+    <hr>
+
     {% for deck in decks %}
         {{ deck['id'] }}
-        {{ deck['name'] }}<hr>
+        {{ deck['name'] }}
+        <button type="button">Go</button>
+        <button type="button">Edit</button>
+        <hr>
     {% endfor %}
 </body>
 </html>
