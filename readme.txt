@@ -13,6 +13,7 @@ Refector
     Make app structure http://exploreflask.com/en/latest/organizing.html
 Write Tests
 +Handling card leanring level
+Add 404 page
 Add Card Decks
 Add new type of cards with syntax highlight
 Uploading images for cards

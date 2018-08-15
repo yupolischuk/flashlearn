@@ -32,11 +32,13 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
 
-    @app.route('/')
-    def home():
-        # TODO add blueprint for home page with list of decks
-        return 'Home'
+    from . import home
+    app.register_blueprint(home.bp)
+    app.add_url_rule('/', endpoint='index')
 
+    from . import deck
+    app.register_blueprint(deck.bp)
+    app.add_url_rule('/deck/', endpoint='index')
 
     from . import flashcard
     app.register_blueprint(flashcard.bp)
