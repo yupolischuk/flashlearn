@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask import render_template
-from flask import request
 
 from flashlearn.db import connect
+
 
 bp = Blueprint('home', __name__)
 

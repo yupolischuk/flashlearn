@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 
-    <button onclick="location.href='/deck/create'">Add new</button>
+    <button onclick="location.href='/deck/create'">Add new deck</button>
+    <button onclick="location.href='/flashcard/create/'">Add new flashcard</button>
     <hr>
 <div id="deck-list">
     {% for deck in decks %}
@@ -29,12 +30,7 @@
             if (el.type === 'button' && el['className'] === 'update-btn') {
                 var id = el.dataset['id'];
                 var action = 'update';
-                /*var params = {
-                    'id': id,
-                    'action': action
-                };
 
-                sendRequest(params)*/
                 window.location.href = '/deck/update/?id=' + id;
 
             }

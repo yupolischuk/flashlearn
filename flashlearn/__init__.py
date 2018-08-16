@@ -26,12 +26,6 @@ def create_app(test_config=None):
         pass
 
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-
     from . import home
     app.register_blueprint(home.bp)
     app.add_url_rule('/', endpoint='index')
