@@ -16,10 +16,10 @@
 <div id="deck-list">
     {% for deck in decks %}
 
-        {{ deck['id'] }}
+        id: {{ deck['id'] }}
         {{ deck['name'] }}
         <button class="watch-btn" data-id="{{ deck['id'] }}" type="button">Watch</button>
-        <button type="button">Learn</button>
+        <button onclick="location.href='/learn/?deck_id={{ deck['id'] }}'">Learn</button>
         <button class="update-btn" data-id="{{ deck['id'] }}" type="button">Update</button>
         <button class="delete-btn" data-id="{{ deck['id'] }}" type="button">Delete</button>
         <hr>

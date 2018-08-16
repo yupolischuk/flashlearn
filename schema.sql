@@ -29,7 +29,7 @@ CREATE TABLE `deck` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY `id` (`id`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,6 @@ CREATE TABLE `deck` (
 
 LOCK TABLES `deck` WRITE;
 /*!40000 ALTER TABLE `deck` DISABLE KEYS */;
-INSERT INTO `deck` VALUES (5,'The first deck',NULL,'2018-08-15 11:35:38'),(6,'Second deck',NULL,'2018-08-15 11:39:01'),(7,'Third deck',NULL,'2018-08-15 11:40:00');
 /*!40000 ALTER TABLE `deck` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,8 +54,9 @@ CREATE TABLE `flashcard` (
   `answer` text NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `level` int(6) NOT NULL,
+  `deck_id` int(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,6 @@ CREATE TABLE `flashcard` (
 
 LOCK TABLES `flashcard` WRITE;
 /*!40000 ALTER TABLE `flashcard` DISABLE KEYS */;
-INSERT INTO `flashcard` VALUES (2,'Hi','bububu','2018-08-09 09:50:21',4),(3,'Hidsfsdf','Kookoo','2018-08-09 09:50:22',4),(4,'qwerty','uiop','2018-08-09 10:12:59',2),(5,'walahwalah','budubudu','2018-08-09 09:50:25',3),(6,'What is it?','sdflkwertv sdflksdfjlk','2018-08-09 13:04:06',4),(8,'qwer','qwer1','2018-08-14 13:21:37',1);
 /*!40000 ALTER TABLE `flashcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-15 14:40:52
+-- Dump completed on 2018-08-16 16:01:57
