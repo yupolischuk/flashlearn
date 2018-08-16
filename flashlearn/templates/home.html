@@ -5,14 +5,20 @@
     <title>Title</title>
 </head>
 
+    <h1>Home</h1>
+
     <button onclick="location.href='/deck/create'">Add new deck</button>
     <button onclick="location.href='/flashcard/create/'">Add new flashcard</button>
-    <hr>
+    <br>
+    <br>
+    <br>
+
 <div id="deck-list">
     {% for deck in decks %}
 
         {{ deck['id'] }}
         {{ deck['name'] }}
+        <button class="watch-btn" data-id="{{ deck['id'] }}" type="button">Watch</button>
         <button type="button">Learn</button>
         <button class="update-btn" data-id="{{ deck['id'] }}" type="button">Update</button>
         <button class="delete-btn" data-id="{{ deck['id'] }}" type="button">Delete</button>
@@ -23,8 +29,16 @@
 
     window.onload = function () {
 
+        // Handle button events
         document.querySelector('#deck-list').onclick = function (e) {
             var el = e.target;
+
+            // Watch
+            if (el.type === 'button' && el['className'] === 'watch-btn') {
+                var id = el.dataset['id'];
+
+                window.location.href = '/deck/watch/?id=' + id;
+            }
 
             // Update
             if (el.type === 'button' && el['className'] === 'update-btn') {

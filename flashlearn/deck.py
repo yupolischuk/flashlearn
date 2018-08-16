@@ -10,8 +10,19 @@ bp = Blueprint('deck', __name__)
 engine = connect()
 
 
+# Watch
+@bp.route('/deck/watch/', methods=['GET'])
+def watch():
+
+    id = request.args.get('id')
+    sql = "SELECT * FROM `flashcard` WHERE deck_id=" + str(id)
+    flashcards = engine.execute(sql)
+
+    return render_template('deck/watch.html', flashcards=flashcards, deck_id=id)
+
+
 # Create
-@bp.route('/deck/create', methods=['GET'])
+@bp.route('/deck/create/', methods=['GET'])
 def create_page():
 
     return render_template('deck/create.html')
@@ -49,8 +60,9 @@ def save_changes():
 
     return redirect('/')
 
+
 # Delete
-@bp.route('/deck/delete', methods=['POST'])
+@bp.route('/deck/delete/', methods=['POST'])
 def delete():
 
     id = request.form.get('id')

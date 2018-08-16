@@ -27,7 +27,7 @@ def save_new():
           "VALUES (\'" + question + "\', \'" + answer + "\', \'" + updated + "\', " + str(level) + ")"
     engine.execute(sql);
 
-    return 'hi'
+    return 'success'
 
 
 # Update
