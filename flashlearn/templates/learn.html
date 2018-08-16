@@ -30,6 +30,7 @@
     window.onload = function() {
 
         var currentCardId;
+        var deck_id = findURLParam(window.location.href, 'deck_id');
 
         //repetition level
         const AGAIN     = 1;
@@ -43,11 +44,11 @@
 
         // Next
         document.getElementById('next-btn').onclick = function getNextCard() {
-            processCards(1, currentCardId, 'give_next');
+            processCards(deck_id, currentCardId, 'give_next');
         };
         // Prev
         document.getElementById('prev-btn').onclick = function getPrevCard() {
-            processCards(1, currentCardId, 'give_prev');
+            processCards(deck_id, currentCardId, 'give_prev');
         };
 
         // Answer
@@ -71,7 +72,7 @@
 
         // Give first card
         // TODO не передавать card_id если action=give_first
-        processCards(0, 0, 'give_first');
+        processCards(deck_id, 0, 'give_first');
 
 
         function processCards(deck_id, card_id, action) {
@@ -80,12 +81,11 @@
             sendRequest(params.url, params.request, function (card) {
                 render('card', card);
             });
-
         }
 
 
         function prepareParams(deck_id, card_id, action) {
-            var url = '/give_card';
+            var url = '/give_card/';
             var request = 'action=' + action + '&deck_id=' + deck_id + '&card_id=' + card_id;
 
             return {
@@ -110,6 +110,12 @@
             var html = data[0] + '<br>' + data[1] + '<br>' + data[2];
             document.getElementById(elem_id).innerHTML = html;
             currentCardId = data[0];
+        }
+
+        function findURLParam(url_string, paramName) {
+            var url = new URL(url_string);
+
+            return url.searchParams.get(paramName);
         }
     };
 
