@@ -10,30 +10,51 @@ bp = Blueprint('deck', __name__)
 engine = connect()
 
 
+# Create
 @bp.route('/deck/create', methods=['GET'])
 def create_page():
 
     return render_template('deck/create.html')
 
 
-@bp.route('/deck/create', methods=['POST'])
+@bp.route('/deck/create', methods=['GET'])
 def save():
 
     name = request.form.get('name')
-
     sql = "INSERT INTO `deck` (`name`) VALUES ( '" + str(name) + "');"
-
     engine.execute(sql)
 
     return redirect('/')
 
 
+# Update
+@bp.route('/deck/update/', methods=['GET'])
+def update():
+
+    id = request.args.get('id')
+    sql = "SELECT id, name FROM `deck` WHERE id=" + id
+    deck = engine.execute(sql).first()
+
+    return render_template('deck/update.html', deck=deck)
+
+
+@bp.route('/deck/update/', methods=['POST'])
+def save_changes():
+
+    id = request.form.get('id')
+    name = request.form.get('name')
+
+    sql = "UPDATE `deck` SET `name`=\'" + name + "\' WHERE id=" + id
+    engine.execute(sql)
+
+    return redirect('/')
+
+# Delete
 @bp.route('/deck/delete', methods=['POST'])
 def delete():
 
     id = request.form.get('id')
     sql = "DELETE FROM `deck` WHERE id=" + str(id)
-
     engine.execute(sql)
 
     return 'success'

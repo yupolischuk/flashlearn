@@ -13,7 +13,7 @@
         {{ deck['id'] }}
         {{ deck['name'] }}
         <button type="button">Learn</button>
-        <button type="button">Edit</button>
+        <button class="update-btn" data-id="{{ deck['id'] }}" type="button">Update</button>
         <button class="delete-btn" data-id="{{ deck['id'] }}" type="button">Delete</button>
         <hr>
     {% endfor %}
@@ -25,18 +25,42 @@
         document.querySelector('#deck-list').onclick = function (e) {
             var el = e.target;
 
+            // Update
+            if (el.type === 'button' && el['className'] === 'update-btn') {
+                var id = el.dataset['id'];
+                var action = 'update';
+                /*var params = {
+                    'id': id,
+                    'action': action
+                };
+
+                sendRequest(params)*/
+                window.location.href = '/deck/update/?id=' + id;
+
+            }
+
+            // Delete
             if (el.type === 'button' && el['className'] === 'delete-btn') {
                 var id = el.dataset['id'];
-                sendRequest(id);
+                var action = 'delete';
+                var params = {
+                    'id': id,
+                    'action': action
+                };
+
+                sendRequest(params);
             }
+
 
         };
 
 
-        function sendRequest(id) {
+        function sendRequest(params) {
             var http = new XMLHttpRequest();
-            var data = 'id=' + id;
-            http.open('POST', '/deck/delete', true);
+            var data = params['id='] + id;
+            var url = '/deck/' + params['action'];
+
+            http.open('POST', url, true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             http.onreadystatechange = function() {
                 if(http.readyState == 4 && http.status == 200) {
