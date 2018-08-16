@@ -7,12 +7,16 @@
 <body>
     <form method="POST">
         question
-        <input type="text" id="question">
+        <br>
+        <textarea type="text" rows="7" cols="100"  id="question"></textarea>
         <br>
         answer
-        <input type="text" id="answer">
         <br>
-
+        <textarea type="text" rows="17" cols="100" id="answer"></textarea>
+        <br>
+        deck
+        <input type="text" id="deck_id">
+        <br>
         <button type="button" id="save-btn">Save</button>
 
     </form>
@@ -24,8 +28,9 @@
         document.getElementById('save-btn').onclick = function () {
             var question = document.getElementById('question').value;
             var answer = document.getElementById('answer').value;
+            var deck_id = document.getElementById('deck_id').value;
 
-            var params = 'question=' + question + '&answer=' + answer;
+            var params = 'question=' + question + '&answer=' + answer + '&deck_id=' + deck_id;
             sendRequest(params);
         };
 

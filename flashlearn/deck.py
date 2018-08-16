@@ -28,7 +28,7 @@ def create_page():
     return render_template('deck/create.html')
 
 
-@bp.route('/deck/create', methods=['GET'])
+@bp.route('/deck/create/', methods=['POST'])
 def save():
 
     name = request.form.get('name')

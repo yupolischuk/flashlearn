@@ -22,10 +22,12 @@ def save_new():
     updated = current_timestamp()
     question = request.form.get('question')
     answer = request.form.get('answer')
+    deck_id = request.form.get('deck_id')
 
-    sql = "INSERT INTO `flashcard`(`question`, `answer`, `updated`, `level`) " \
-          "VALUES (\'" + question + "\', \'" + answer + "\', \'" + updated + "\', " + str(level) + ")"
-    engine.execute(sql);
+    sql = "INSERT INTO `flashcard`(`question`, `answer`, `updated`, `level`, `deck_id`) " \
+          "VALUES (\'" + question + "\', \'" + answer + "\', \'" + updated + "\', \'" + str(level) + "\', \'" + str(deck_id) + "\'" + ")"
+
+    engine.execute(sql)
 
     return 'success'
 

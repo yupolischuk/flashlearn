@@ -17,7 +17,7 @@
     {% for deck in decks %}
 
         id: {{ deck['id'] }}
-        {{ deck['name'] }}
+        {{ deck['name'] }} |
         <button class="watch-btn" data-id="{{ deck['id'] }}" type="button">Watch</button>
         <button onclick="location.href='/learn/?deck_id={{ deck['id'] }}'">Learn</button>
         <button class="update-btn" data-id="{{ deck['id'] }}" type="button">Update</button>
