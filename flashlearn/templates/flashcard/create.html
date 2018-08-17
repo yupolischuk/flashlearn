@@ -15,9 +15,16 @@
         <textarea type="text" rows="17" cols="100" id="answer"></textarea>
         <br>
         deck
-        <input type="text" id="deck_id">
         <br>
+        <select id="deck_id" name="deck">
+            {% for deck in decks %}
+                <option value="{{ deck['id'] }}">{{ deck['name'] }}</option>
+            {%  endfor %}
+        </select>
+
+        <hr>
         <button type="button" id="save-btn">Save</button>
+
 
     </form>
 

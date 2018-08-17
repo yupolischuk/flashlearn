@@ -125,7 +125,12 @@
         }
 
         function render(elem_id, data) {
-            var html = data[0] + '<br>' + data[1] + '<br><br>' + data[2];
+            if (data[2]) {
+                var html = data[0] + '<br>' + data[1] + '<br><br>' + data[2];
+            } else {
+                var html = data[0] + '<br>' + data[1] + '<br><br>';
+            }
+
 
             document.getElementById(elem_id).innerHTML = html;
             currentCardId = data[0];
@@ -138,7 +143,7 @@
         }
 
         function handleAnswer() {
-            // TODO ПЕРЕПИСАТЬ НА ИСПОЛЬЗОВАНИЕ ЧИСТЫХ ФУНКЦИЙ
+
             var allCardData = window.allCardData;
             var cardWithoutAnswer = [allCardData[0], allCardData[1]];
             var cardWithAnswer = [allCardData[0], allCardData[1], allCardData[2]];

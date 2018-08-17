@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import request
 
+
 from flashlearn.db import connect
 from flashlearn.helper import current_timestamp
 
@@ -13,8 +14,10 @@ engine = connect()
 # Create
 @bp.route('/flashcard/create/', methods=['GET'])
 def create():
+    decks = engine.execute("SELECT * FROM `deck`")
 
-    return render_template('flashcard/create.html')
+    return render_template('flashcard/create.html', decks=decks)
+
 
 @bp.route('/flashcard/save_new/', methods=['POST'])
 def save_new():
