@@ -27,9 +27,10 @@ CREATE TABLE `deck` (
   `name` varchar(255) NOT NULL,
   `parent` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL DEFAULT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +39,7 @@ CREATE TABLE `deck` (
 
 LOCK TABLES `deck` WRITE;
 /*!40000 ALTER TABLE `deck` DISABLE KEYS */;
+INSERT INTO `deck` VALUES (3,'First deck modified updated',NULL,'2018-08-17 07:39:38','2018-08-17 07:40:26'),(4,'Second deck',NULL,'2018-08-17 08:22:43',NULL),(5,'Third deck',NULL,'2018-08-17 08:27:25',NULL);
 /*!40000 ALTER TABLE `deck` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,11 +54,12 @@ CREATE TABLE `flashcard` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `question` varchar(255) NOT NULL,
   `answer` text NOT NULL,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL DEFAULT NULL,
   `level` int(6) NOT NULL,
   `deck_id` int(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +68,7 @@ CREATE TABLE `flashcard` (
 
 LOCK TABLES `flashcard` WRITE;
 /*!40000 ALTER TABLE `flashcard` DISABLE KEYS */;
+INSERT INTO `flashcard` VALUES (8,'qwerty','uiop','2018-08-17 07:48:22',NULL,1,4);
 /*!40000 ALTER TABLE `flashcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,4 +105,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-16 16:01:57
+-- Dump completed on 2018-08-17 11:51:02
