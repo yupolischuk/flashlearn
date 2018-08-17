@@ -3,6 +3,9 @@ from flask import render_template
 from flask import request
 from flask import redirect
 
+from flashlearn.helper import current_timestamp
+
+
 from flashlearn.db import connect
 
 bp = Blueprint('deck', __name__)
@@ -29,7 +32,7 @@ def create_page():
 
 
 @bp.route('/deck/create/', methods=['POST'])
-def save():
+def save_new():
 
     name = request.form.get('name')
     sql = "INSERT INTO `deck` (`name`) VALUES ( '" + str(name) + "');"
@@ -54,8 +57,9 @@ def save_changes():
 
     id = request.form.get('id')
     name = request.form.get('name')
+    updated = current_timestamp()
 
-    sql = "UPDATE `deck` SET `name`=\'" + name + "\' WHERE id=" + id
+    sql = "UPDATE `deck` SET `name`=\'" + name + "\', `updated`=\'" + updated + "\' WHERE id=" + id
     engine.execute(sql)
 
     return redirect('/')

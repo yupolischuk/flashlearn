@@ -27,8 +27,8 @@ def save_new():
     answer = request.form.get('answer')
     deck_id = request.form.get('deck_id')
 
-    sql = "INSERT INTO `flashcard`(`question`, `answer`, `updated`, `level`, `deck_id`) " \
-          "VALUES (\'" + question + "\', \'" + answer + "\', \'" + updated + "\', \'" + str(level) + "\', \'" + str(deck_id) + "\'" + ")"
+    sql = "INSERT INTO `flashcard`(`question`, `answer`, `level`, `deck_id`) " \
+          "VALUES (\'" + question + "\', \'" + answer + "\', \'" + str(level) + "\', \'" + str(deck_id) + "\'" + ")"
 
     engine.execute(sql)
 
@@ -36,21 +36,34 @@ def save_new():
 
 
 # Update
-@bp.route('/flashcard/update/', methods=['POST'])
+@bp.route('/flashcard/update/', methods=['GET'])
 def update():
 
-    id = request.form.get('id')
-    question = request.form.get('question')
-    answer = request.form.get('answer')
-    level = request.form.get('level')
-    updated = current_timestamp()
+    id = request.args.get('id')
+    sql = "SELECT id, question, answer, deck_id FROM `flashcard` WHERE id=" + id
+    flashcard = engine.execute(sql).first()
 
-    str = 'UPDATE `flashcard` SET `question`=\'' + question + '\',`answer`=\'' + answer +\
-        '\',`updated`=\'' + updated + '\',`level`=\'' + level + '\' WHERE id=' + id
+    sql_decks = "SELECT * FROM deck"
+    decks = engine.execute(sql_decks)
 
-    engine.execute(str)
+    return render_template('flashcard/update.html', flashcard=flashcard, decks=decks)
 
-    return 'hi'
+
+# @bp.route('/flashcard/update/', methods=['POST'])
+# def update():
+#
+#     id = request.form.get('id')
+#     question = request.form.get('question')
+#     answer = request.form.get('answer')
+#     level = request.form.get('level')
+#     updated = current_timestamp()
+#
+#     str = 'UPDATE `flashcard` SET `question`=\'' + question + '\',`answer`=\'' + answer +\
+#         '\',`updated`=\'' + updated + '\',`level`=\'' + level + '\' WHERE id=' + id
+#
+#     engine.execute(str)
+#
+#     return 'hi'
 
 
 # Delete

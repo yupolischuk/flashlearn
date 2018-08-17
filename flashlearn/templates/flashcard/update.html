@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/flashcard/update/" method="POST">
+        question
+        <br>
+        <textarea type="text" rows="7" cols="100"  id="question">{{ flashcard['question'] }}</textarea>
+        <br>
+        answer
+        <br>
+        <textarea type="text" rows="17" cols="100" id="answer">{{ flashcard['answer'] }}</textarea>
+        <br>
+        deck
+        <br>
+        <select id="deck_id" name="deck">
+            {% for deck in decks %}
+                {% if flashcard['deck_id'] == deck['id'] %}
+                    <option selected="selected" value="{{ deck['id'] }}">{{ deck['name'] }}</option>
+
+                {% else %}
+                    <option value="{{ deck['id'] }}">{{ deck['name'] }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+
+
+
+        <hr>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
