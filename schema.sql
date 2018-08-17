@@ -30,7 +30,7 @@ CREATE TABLE `deck` (
   `updated` timestamp NULL DEFAULT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `deck` (
 
 LOCK TABLES `deck` WRITE;
 /*!40000 ALTER TABLE `deck` DISABLE KEYS */;
-INSERT INTO `deck` VALUES (3,'First deck modified updated',NULL,'2018-08-17 07:39:38','2018-08-17 07:40:26'),(4,'Second deck',NULL,'2018-08-17 08:22:43',NULL),(5,'Third deck',NULL,'2018-08-17 08:27:25',NULL);
+INSERT INTO `deck` VALUES (1,'Python',NULL,'2018-08-17 12:59:39','2018-08-17 13:05:05'),(2,'Linux',NULL,'2018-08-17 12:59:55','2018-08-17 13:05:10');
 /*!40000 ALTER TABLE `deck` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `flashcard` (
   `level` int(6) NOT NULL,
   `deck_id` int(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `flashcard` (
 
 LOCK TABLES `flashcard` WRITE;
 /*!40000 ALTER TABLE `flashcard` DISABLE KEYS */;
-INSERT INTO `flashcard` VALUES (8,'qwerty','uiop','2018-08-17 07:48:22',NULL,1,4);
+INSERT INTO `flashcard` VALUES (1,'qwetion','answer','2018-08-17 13:05:53',NULL,4,1),(2,'sdfsdf','asdfsdff','2018-08-17 13:07:41',NULL,1,1),(3,'asdsdfsdf','sdfsdfsdfsdf','2018-08-17 13:07:46',NULL,2,1),(4,'sdfsf','asdfsdfsdf','2018-08-17 13:07:52',NULL,3,1);
 /*!40000 ALTER TABLE `flashcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,6 +95,29 @@ LOCK TABLES `level` WRITE;
 INSERT INTO `level` VALUES (1,'again',0),(2,'good',1),(3,'easy',4),(4,'very_easy',8);
 /*!40000 ALTER TABLE `level` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `tmp_learning`
+--
+
+DROP TABLE IF EXISTS `tmp_learning`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_learning` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `card_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tmp_learning`
+--
+
+LOCK TABLES `tmp_learning` WRITE;
+/*!40000 ALTER TABLE `tmp_learning` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tmp_learning` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -105,4 +128,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-17 11:51:02
+-- Dump completed on 2018-08-17 18:19:11
