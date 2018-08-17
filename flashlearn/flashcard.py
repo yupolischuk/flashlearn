@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import render_template
 from flask import request
-
+from flask import redirect
 
 from flashlearn.db import connect
 from flashlearn.helper import current_timestamp
@@ -47,6 +47,27 @@ def update():
     decks = engine.execute(sql_decks)
 
     return render_template('flashcard/update.html', flashcard=flashcard, decks=decks)
+
+
+@bp.route('/flashcard/update/', methods=['POST'])
+def save_changes():
+
+    id = request.form.get('id')
+    question = request.form.get('question')
+    answer = request.form.get('answer')
+    deck_id = request.form.get('deck_id')
+    updated = current_timestamp()
+
+    sql = "UPDATE `flashcard` SET question=\'" + question + "\', answer=\'" + answer + \
+          "\', deck_id=\'" + deck_id + "\', updated=\'" + updated + "\' WHERE id=" + id
+
+    print('777777777777777777777777777777777777')
+    print(sql)
+
+
+    engine.execute(sql)
+
+    return redirect('/')
 
 
 # @bp.route('/flashcard/update/', methods=['POST'])

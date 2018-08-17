@@ -6,17 +6,18 @@
 </head>
 <body>
     <form action="/flashcard/update/" method="POST">
+        <input type="hidden" name="id" value="{{ flashcard['id'] }}">
         question
         <br>
-        <textarea type="text" rows="7" cols="100"  id="question">{{ flashcard['question'] }}</textarea>
+        <textarea type="text" rows="7" cols="100"  name="question">{{ flashcard['question'] }}</textarea>
         <br>
         answer
         <br>
-        <textarea type="text" rows="17" cols="100" id="answer">{{ flashcard['answer'] }}</textarea>
+        <textarea type="text" rows="17" cols="100" name="answer">{{ flashcard['answer'] }}</textarea>
         <br>
         deck
         <br>
-        <select id="deck_id" name="deck">
+        <select name="deck_id">
             {% for deck in decks %}
                 {% if flashcard['deck_id'] == deck['id'] %}
                     <option selected="selected" value="{{ deck['id'] }}">{{ deck['name'] }}</option>
