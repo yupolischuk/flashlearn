@@ -24,8 +24,6 @@ def give_card():
     card_id = int(request.form.get("card_id"))
     action = request.form.get('action')
 
-    # engine = connect()
-
     '''
     Приоритет выдачи карт
     Выбрать все из выбранной колоды которые
@@ -33,9 +31,20 @@ def give_card():
         выбираем все обновленные сегодня но больше часа назад + начиная из самого низкого уровня
         выбираем все обновленные меньше часа назад + начная из самого низкого уровня
         Когда карты закончились - выводим сообщение: Колода закончилась, с возможностью начать заново
+        
+        If last card - truncate tmp table
     '''
 
     if action == 'give_first':
+        # Get all needed select and insert them to temporary learning table
+        # id card_id
+
+        get_card_ids = "SELECT id FROM `flashcard` WHERE deck_id=1 ORDER BY level ASC;"
+        # insert_card_ids = 'INSERT INTO `tmp_learning` '
+
+        card_ids = engine.execute(get_card_ids)
+        # process_tmp_table('insert', card_ids)
+
         sql = "SELECT * FROM `flashcard` WHERE level = (SELECT MIN(level) FROM `flashcard`) AND deck_id=" + deck_id
 
         card = engine.execute(sql).first()
@@ -98,6 +107,15 @@ def give_card():
         else:
             return 'card not found'
 
+
+def process_tmp_table(action, card_ids):
+    if action == 'create':
+        # insert data into table
+        return 'hi'
+
+    elif action == 'clear table':
+        # truncate table
+        return 'hi'
 
 @bp.route("/set_level", methods=["POST"])
 def update_level():

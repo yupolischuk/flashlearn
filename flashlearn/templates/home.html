@@ -20,9 +20,11 @@
         {{ deck['name'] }} |
         <button class="watch-btn" data-id="{{ deck['id'] }}" type="button">Watch</button>
         <button onclick="location.href='/learn/?deck_id={{ deck['id'] }}'">Learn</button>
+        <button >Add</button>
         <button class="update-btn" data-id="{{ deck['id'] }}" type="button">Update</button>
         <button class="delete-btn" data-id="{{ deck['id'] }}" type="button">Delete</button>
         <hr>
+
     {% endfor %}
 </div>
     <script>

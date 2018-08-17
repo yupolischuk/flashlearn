@@ -9,13 +9,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@local
 
 
 TODO
-Input data filtering
-Refector
++Add Decks
+Add temporary table for learning session
+Refactor
     Make app structure http://exploreflask.com/en/latest/organizing.html
 Write Tests
 +Handling card leanring level
 Add 404 page
-Add Card Decks
 Add new type of cards with syntax highlight
 Uploading images for cards
 Nested Sets for Decks

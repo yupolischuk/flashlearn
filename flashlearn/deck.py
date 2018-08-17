@@ -71,9 +71,6 @@ def delete():
 
     id = request.form.get('id')
 
-    print('777777777777777777777')
-    print(id)
-
     sql = "DELETE FROM `deck` WHERE id=" + id
     engine.execute(sql)
 

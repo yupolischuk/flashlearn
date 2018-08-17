@@ -11,8 +11,8 @@
     <div id="card"></div>
 
     <button id="flip-btn">Flip</button>
-    <br>
-    <button id="#">Edit</button>
+    <br><br>
+    <button id="#">Update</button>
     <br><br>
 
     <button id="prev-btn">Prev</button>
@@ -149,14 +149,12 @@
             var cardWithAnswer = [allCardData[0], allCardData[1], allCardData[2]];
 
             if (window.showAnswer) {
-                console.log('show answer');
                 window.showAnswer = false;
                 document.getElementById('card').innerHTML = "";
                 render('card', cardWithAnswer)
                 //return cardWithAnswer
             } else {
                 window.showAnswer = true;
-                console.log('hide answer');
                 document.getElementById('card').innerHTML = "";
                 render('card', cardWithoutAnswer);
                 //return cardWithoutAnswer
