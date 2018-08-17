@@ -59,16 +59,15 @@
                 };
 
                 sendRequest(params);
+                window.location.href = '/';
             }
-
-
         };
 
 
         function sendRequest(params) {
             var http = new XMLHttpRequest();
-            var data = params['id='] + id;
-            var url = '/deck/' + params['action'];
+            var data = '&id=' + params['id'];
+            var url = '/deck/' + params['action'] + '/';
 
             http.open('POST', url, true);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -76,6 +75,7 @@
                 if(http.readyState == 4 && http.status == 200) {
                     //typeof callback === 'function' && callback(JSON.parse(http.responseText));
                     console.log(http.responseText);
+                    return http.responseText;
                 }
             };
             http.send(data);

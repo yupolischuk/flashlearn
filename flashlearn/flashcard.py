@@ -60,11 +60,6 @@ def save_changes():
 
     sql = "UPDATE `flashcard` SET question=\'" + question + "\', answer=\'" + answer + \
           "\', deck_id=\'" + deck_id + "\', updated=\'" + updated + "\' WHERE id=" + id
-
-    print('777777777777777777777777777777777777')
-    print(sql)
-
-
     engine.execute(sql)
 
     return redirect('/')

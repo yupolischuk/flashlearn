@@ -70,7 +70,11 @@ def save_changes():
 def delete():
 
     id = request.form.get('id')
-    sql = "DELETE FROM `deck` WHERE id=" + str(id)
+
+    print('777777777777777777777')
+    print(id)
+
+    sql = "DELETE FROM `deck` WHERE id=" + id
     engine.execute(sql)
 
     return 'success'
