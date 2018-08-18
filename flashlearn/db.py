@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, MetaData
 file = open('./flashcard.cfg', 'r')
 str = file.read()
 arr = str.split("=")
-config = arr[1][2:49]
+config = arr[1][2:48]
 
 
 def connect():
