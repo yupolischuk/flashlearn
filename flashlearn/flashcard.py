@@ -14,9 +14,13 @@ engine = connect()
 # Create
 @bp.route('/flashcard/create/', methods=['GET'])
 def create():
+    default_deck_id = None
+    default_deck_id = int(request.args.get('deck_id'))
+
     decks = engine.execute("SELECT * FROM `deck`")
 
-    return render_template('flashcard/create.html', decks=decks)
+    return render_template(
+        'flashcard/create.html', decks=decks, default_deck_id=default_deck_id)
 
 
 @bp.route('/flashcard/save_new/', methods=['POST'])

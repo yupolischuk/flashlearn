@@ -16,10 +16,15 @@
         <br>
         deck
         <br>
+
         <select id="deck_id" name="deck">
             {% for deck in decks %}
-                <option value="{{ deck['id'] }}">{{ deck['name'] }}</option>
-            {%  endfor %}
+                {% if default_deck_id  == deck['id'] %}
+                    <option selected="selected" value="{{ deck['id'] }}">{{ deck['name'] }}</option>
+                {% else %}
+                    <option value="{{ deck['id'] }}">{{ deck['name'] }}</option>
+                {% endif %}
+            {% endfor %}
         </select>
 
         <hr>
