@@ -18,6 +18,7 @@
 
         id: {{ deck['id'] }}
         {{ deck['name'] }} |
+        {{ deck['count_cards'] }} |
         <button class="watch-btn" data-id="{{ deck['id'] }}" type="button">Watch</button>
         <button onclick="location.href='/learn/?deck_id={{ deck['id'] }}'">Learn</button>
         <button onclick="location.href='/flashcard/create/?deck_id={{ deck['id'] }}'">Add Card</button>
