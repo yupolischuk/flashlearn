@@ -12,7 +12,7 @@
 
     <button id="flip-btn">Flip</button>
     <br><br>
-    <button id="#">Update</button>
+    <button id="edit-btn">Edit</button>
     <br><br>
 
     <button id="prev-btn">Prev</button>
@@ -82,7 +82,10 @@
             var params = 'card_id=' + currentCardId + '&level=' + EASY;
             sendRequest('/set_level', params);
         };
-
+        document.getElementById('edit-btn').onclick = function editCard() {
+            var id = window.allCardData[0];
+            window.location.href = '/flashcard/update/?id=' + id;
+        };
 
         // Give first card
         // TODO не передавать card_id если action=give_first
