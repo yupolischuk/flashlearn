@@ -1,9 +1,8 @@
 from sqlalchemy import create_engine, MetaData
+import config
 
-file = open('./flashcard.cfg', 'r')
-str = file.read()
-arr = str.split("=")
-config = arr[1][2:49]
+config =  config.SQLALCHEMY_DATABASE_URI
+
 
 def connect():
     engine = create_engine(config, convert_unicode=True)
