@@ -134,7 +134,6 @@
                 var html = data[0] + '<br>' + data[1] + '<br><br>';
             }
 
-
             document.getElementById(elem_id).innerHTML = html;
             currentCardId = data[0];
         }
@@ -146,12 +145,11 @@
         }
 
         function handleAnswer() {
-
             var allCardData = window.allCardData;
-            var cardWithoutAnswer = [allCardData[0], allCardData[1]];
+            var cardWithoutAnswer = [allCardData[0], allCardData[1], ''];
             var cardWithAnswer = [allCardData[0], allCardData[1], allCardData[2]];
 
-            if (window.showAnswer) {
+            if (window.showAnswer === true) {
                 window.showAnswer = false;
                 document.getElementById('card').innerHTML = "";
                 render('card', cardWithAnswer)
