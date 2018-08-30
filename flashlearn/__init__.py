@@ -46,6 +46,12 @@ def create_app(test_config=None):
     app.register_blueprint(learn.bp)
     app.add_url_rule('/learn/', endpoint='index')
 
+    from . import test_rest
+    app.register_blueprint(test_rest.bp)
+    app.add_url_rule('/test_rest/', endpoint='index')
+    # @app.route('/test_rest/', methods=['GET', 'POST'])
+    # def test_rest():
+    #     return 'test_rest'
 
     # test CORS
     @app.route('/hello/', methods=['GET', 'POST'])
