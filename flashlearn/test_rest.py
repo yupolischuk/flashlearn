@@ -14,7 +14,7 @@ def index():
     decks = []
 
     for deck in decks_obj:
-        item = (deck['id'], deck['name'])
+        item = {'id': deck['id'], 'name': deck['name']}
         decks.append(item)
 
     return jsonify(decks)
