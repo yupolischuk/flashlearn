@@ -28,7 +28,7 @@ def save_new():
     level = 1
     updated = current_timestamp()
     question = request.form.get('question')
-    answer = request.form.get('answer')
+    answer = request.form.get('answer').replace("\'", "\\'")
     deck_id = request.form.get('deck_id')
 
     sql = "INSERT INTO `flashcard`(`question`, `answer`, `level`, `deck_id`) " \
@@ -58,7 +58,7 @@ def save_changes():
 
     id = request.form.get('id')
     question = request.form.get('question')
-    answer = request.form.get('answer')
+    answer = request.form.get('answer').replace("\'", "\\'")
     deck_id = request.form.get('deck_id')
     updated = current_timestamp()
 
