@@ -25,6 +25,32 @@
     <button id="good-btn">Good (4 days)</button>
     <button id="easy-btn">Easy(7 days)</button>
 
+    <pre><code>
+    def test_lambda_expressions():
+    """Lambda Expressions"""
+
+    # This function returns the sum of its two arguments: lambda a, b: a+b
+    # Like nested function definitions, lambda functions can reference variables from the
+    # containing scope.
+
+    def make_increment_function(delta):
+        """This example uses a lambda expression to return a function"""
+        return lambda number: number + delta
+
+    increment_function = make_increment_function(42)
+
+    assert increment_function(0) == 42
+    assert increment_function(1) == 43
+    assert increment_function(2) == 44
+
+    # Another use of lambda is to pass a small function as an argument.
+    pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+    # Sort pairs by text key.
+    pairs.sort(key=lambda pair: pair[1])
+
+    assert pairs == [(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
+
+    </code></pre>
 
 
 <script type="text/javascript" src="{{ url_for('static', filename='highlightjs/highlight.pack.js') }}"></script>
@@ -130,7 +156,6 @@
         }
 
         function render(elem_id, data) {
-
             if (data.length > 0) {
                 var html = data[0] + '<br>' + data[1] + '<br><br><pre><code>' + data[2] + '</code></pre>';
             } else {
