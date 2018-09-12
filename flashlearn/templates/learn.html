@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Learning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='highlightjs/styles/default.css') }}">
 </head>
 <body>
-    Learning page AJAX
+    Learning
     <hr>
 
     <div id="card"></div>
@@ -26,7 +27,8 @@
 
 
 
-
+<script type="text/javascript" src="{{ url_for('static', filename='highlightjs/highlight.pack.js') }}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 <script>
     "use strict";
 
@@ -44,7 +46,7 @@
         /*
             Process buttons
          */
-        // Flip
+        // Flipping Card
         document.getElementById('flip-btn').onclick = function flipCard() {
             if (window.showAnswer) {
                 handleAnswer();
@@ -100,7 +102,7 @@
                 window.allCardData = card;
 
                 var data = handleAnswer();
-                render('card', data);
+                // render('card', data);
             });
         }
 
@@ -128,8 +130,9 @@
         }
 
         function render(elem_id, data) {
-            if (data[2]) {
-                var html = data[0] + '<br>' + data[1] + '<br><br><pre>' + data[2] + '</pre>';
+
+            if (data.length > 0) {
+                var html = data[0] + '<br>' + data[1] + '<br><br><pre><code>' + data[2] + '</code></pre>';
             } else {
                 var html = data[0] + '<br>' + data[1] + '<br><br>';
             }
