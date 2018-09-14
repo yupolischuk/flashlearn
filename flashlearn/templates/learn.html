@@ -157,7 +157,10 @@
 
         function render(elem_id, data) {
             if (data.length > 0) {
-                var html = data[0] + '<br>' + data[1] + '<br><br><pre><code>' + data[2] + '</code></pre>';
+                console.dir(data[2]);
+
+                var html = data[0] + '<br>' + data[1] + '<br><br><pre><code class="hljs python" id="test">' + data[2] + '</code></pre>';
+                //hljs.highlightBlock(document.getElementById("test"));
             } else {
                 var html = data[0] + '<br>' + data[1] + '<br><br>';
             }
