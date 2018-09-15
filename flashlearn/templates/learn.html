@@ -159,13 +159,14 @@
             if (data.length > 0) {
                 console.dir(data[2]);
 
-                var html = data[0] + '<br>' + data[1] + '<br><br><pre><code class="hljs python" id="test">' + data[2] + '</code></pre>';
+                var html = data[0] + '<br>' + data[1] + '<br><br><pre><code class="hljs python" id="card-answer">' + data[2] + '</code></pre>';
                 //hljs.highlightBlock(document.getElementById("test"));
             } else {
                 var html = data[0] + '<br>' + data[1] + '<br><br>';
             }
 
             document.getElementById(elem_id).innerHTML = html;
+            hljs.highlightBlock(document.getElementById("card-answer"));
             currentCardId = data[0];
         }
 
